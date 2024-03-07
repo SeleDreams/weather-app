@@ -16,7 +16,9 @@ const Weathers = {
     Sunny : "Ensoleillé",
     Cloudy : "Nuageux",
     Rainy : "Pluvieux",
-    Snowy : "Neige"
+    Snowy : "Neige",
+    Thunderstorm : "Eclairs",
+    Mist : "Brouillard"
 }
 
 class Weather {
@@ -40,7 +42,28 @@ class Weather {
         this.name = weatherJson[0];
         this.temperature = weatherJson.main.temp;
         this.windSpeed = weatherJson.wind.speed;
-        this.weather = weatherJson.weather[0].description
+        var weather = weatherJson.weather[0];
+        switch (weather.icon)
+        {
+            case "11d":
+                this.weather = Weathers.Thunderstorm;
+                break;
+            case "10d": case "09d":
+                this.weather = Weathers.Rainy;
+                break;
+            case "13d":
+                this.weather = Weathers.Snowy;
+                break;
+            case "50d":
+                this.weather = Weathers.Mist;
+                break;
+            case "01d" : case "01n" :
+                this.weather = Weathers.Sunny;
+                break;
+            case "02d" : case "02n" : case "03d" : case "03n" : case "04d" : case "04n":
+                this.weather = Weathers.Cloudy;
+                break;
+        }
     }
 
     async displayWeather() {
@@ -49,11 +72,20 @@ class Weather {
         var cityText = document.getElementById("city_text");
         var weatherTempText = document.getElementById("weather_temperature");
         var weatherWeatherText = document.getElementById("weather_weather");
+        var weatherWindText = document.getElementById("weather_wind");
         cityText.innerText = this.config.city;
-        weatherTempText.innerText = this.temperature + "°C";
+        weatherTempText.innerText = Math.round(this.temperature) + "°C";
+        weatherWindText.innerText = "Vent : " + this.windSpeed + "Km/h";
         weatherWeatherText.innerText = this.weather;
     }
 }
 
+function updateWeather()
+{
+    console.log("Updating the weather");
+    weather.displayWeather();
+}
+
 var weather = new Weather();
-weather.displayWeather();
+updateWeather();
+window.setInterval(updateWeather, 1000 * 60 * 60);
