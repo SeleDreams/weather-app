@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'ArchivoBlack-Regular';
-    src: url('/fonts/ArchivoBlack-Regular.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+    src: url('../fonts/ArchivoBlack-Regular.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
 }  
 
 body {
     background-color: #393939;
-    background-image: url("/assets/pexels-max-andrey-1254736.jpg");
+    background-image: url("../assets/pexels-max-andrey-1254736.jpg");
     background-size: cover;
 }
 

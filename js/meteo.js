@@ -32,7 +32,7 @@ class Weather {
 
     async initialize()
     {
-        await this.config.initialize("/config/conf.json")
+        await this.config.initialize("./config/conf.json")
     }
 
     async getWeather() {
